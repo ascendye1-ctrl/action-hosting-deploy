@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": "demo/build",  <-- تغيير مسار public
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
