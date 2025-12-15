@@ -9,14 +9,19 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      # 1. يجب تفعيل أمر البناء (BUILD)
+      # 1. تثبيت الحزم (Dependencies) - الانتقال أولاً إلى مجلد demo
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd demo # الانتقال إلى المجلد الذي يحوي package.json
+          npm install
 
+      # 2. بناء الموقع (Build) - الانتقال أولاً إلى مجلد demo
       - name: Build website
-        run: npm run build # يتم تشغيل سكريبت البناء لإنشاء مجلد 'build'
+        run: |
+          cd demo # الانتقال إلى المجلد الذي يحوي package.json
+          npm run build # يتم تشغيل سكريبت البناء لإنشاء مجلد 'build'
 
-      # 2. استخدام أداة النشر الرسمية لـ Firebase
+      # 3. استخدام أداة النشر الرسمية لـ Firebase
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
@@ -24,5 +29,5 @@ jobs:
           # يجب استبدال هذا بمعرّف مشروعك الحقيقي
           projectId: ascend-bf5b2 
           channelId: live
-          # *** هذا هو السطر الحاسم الذي يجب إضافته ***
+          # البحث عن firebase.json في مجلد demo
           entryPoint: "./demo"
