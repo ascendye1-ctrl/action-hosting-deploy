@@ -1,19 +1,26 @@
 name: Deploy Production
-
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy_website:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      # - run: npm run build
-      - uses: ./
+
+      # 1. يجب تفعيل أمر البناء (BUILD)
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build website
+        run: npm run build # يتم تشغيل سكريبت البناء لإنشاء مجلد 'build'
+
+      # 2. استخدام أداة النشر الرسمية لـ Firebase
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          # يجب استبدال هذا بمعرّف مشروعك الحقيقي (ascend-bf5b2)
+          projectId: ascend-bf5b2 
           channelId: live
-          projectId: action-hosting-deploy-demo
-          entryPoint: "./demo"
