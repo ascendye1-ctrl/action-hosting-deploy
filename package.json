@@ -24,12 +24,13 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
-  "scripts": {
-    "format:check": "prettier . --list-different",
-    "format": "prettier --write .",
-    "build": "microbundle --format cjs --target node --no-compress --no-sourcemap src/index.ts",
-    "build:watch": "microbundle watch --format cjs --target node --no-compress --no-sourcemap src/index.ts",
-    "test": "jest"
+ "scripts": {
+  "format:check": "prettier . --list-different",
+  "format": "prettier --write .",
+  "build": "react-scripts build", 
+  "build:watch": "microbundle watch --format cjs --target node --no-compress --no-sourcemap src/index.ts",
+  "test": "jest"
+},
   },
   "husky": {
     "hooks": {
