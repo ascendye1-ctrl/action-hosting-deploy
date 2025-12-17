@@ -9,18 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Install and Build
-        run: |
-          cd demo
-          npm install
-          npm run build
-          # سنقوم بنسخ المجلد الناتج للتأكد من وجوده في المكان الذي يراه Firebase
-          if [ -d "dist" ]; then echo "Found dist folder"; elif [ -d "build" ]; then echo "Found build folder"; else echo "No build folder found!"; fi
-
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: ascend-bf5b2
           channelId: live
-          entryPoint: "./demo"
+          entryPoint: "." # سنرفع المجلد الرئيسي كاملاً
