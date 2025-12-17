@@ -14,8 +14,8 @@ jobs:
           cd demo
           npm install
           npm run build
-          echo "--- التحقق من المجلدات الناتجة ---"
-          ls -F  # هذا السطر سيكشف لنا إذا كان المجلد اسمه build/ أو dist/
+          # سنقوم بنسخ المجلد الناتج للتأكد من وجوده في المكان الذي يراه Firebase
+          if [ -d "dist" ]; then echo "Found dist folder"; elif [ -d "build" ]; then echo "Found build folder"; else echo "No build folder found!"; fi
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
