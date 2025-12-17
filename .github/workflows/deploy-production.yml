@@ -1,31 +1,7 @@
-name: Deploy Production
-on:
-  push:
-    branches:
-      - main
-jobs:
-  deploy_website:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      # 1. الدخول لمجلد demo لتثبيت الحزم
-      - name: Install dependencies
-        run: |
-          cd demo
-          npm install
-
-      # 2. بناء المشروع داخل مجلد demo
-      - name: Build website
-        run: |
-          cd demo
-          npm run build
-
-      # 3. النشر مع توجيه Firebase للمجلد الصحيح
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+- uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: ascend-bf5b2
           channelId: live
-          entryPoint: "./demo"  # هذا السطر هو مفتاح الحل
+          entryPoint: "demo"  # تأكد أن هذه القيمة تطابق اسم المجلد تماماً
