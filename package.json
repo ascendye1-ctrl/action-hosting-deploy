@@ -25,9 +25,11 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-  "build": "microbundle --format cjs --target node src/index.ts",
-  ...
-}
+    "format:check": "prettier . --list-different",
+    "format": "prettier --write .",
+    "build": "microbundle --format cjs --target node src/index.ts",
+    "build:watch": "microbundle watch --format cjs --target node --no-compress --no-sourcemap src/index.ts",
+    "test": "jest"
   },
   "husky": {
     "hooks": {
