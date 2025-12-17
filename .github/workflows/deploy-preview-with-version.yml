@@ -1,30 +1,23 @@
-name: Deploy Production to Live Channel
+name: Deploy to Preview Channel
 
 on:
-  push:
-    branches:
-      - main  # يضمن تشغيل هذا السير العمل عند الرفع على الفرع الرئيسي
+  pull_request:
+    # Optionally configure to run only for specific files. For example:
+    # paths:
+    # - "website/**"
 
 jobs:
-  deploy_website:
+  build_and_preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-
-      # 1. تثبيت الحزم (Dependencies)
-      - name: Install dependencies
-        run: npm install
-
-      # 2. بناء الموقع (Build) - هذا يُنشئ مجلد 'build' الذي اتفقنا عليه
-      - name: Build website
-        run: npm run build
-
-      # 3. النشر على Firebase
-      - name: Deploy to Firebase Hosting Live Channel
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: actions/checkout@v4
+      # Add any build steps here. For example:
+      # - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          channelId: live
-          # مُعرّف مشروعك (المستنتج من الرابط ascend-bf5b2)
-          projectId: ascend-bf5b2
+          expires: 30d
+          projectId: your-Firebase-project-ID
+          # Optionally add Force flag
+          # force: true
