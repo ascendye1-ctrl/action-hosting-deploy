@@ -1,20 +1,30 @@
+name: Deploy Production to Live Channel
+
+on:
+  push:
+    branches:
+      - main  # سيتم تشغيل السير العمل عند أي رفع على الفرع الرئيسي
+
 jobs:
   deploy_website:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout Repository
+        uses: actions/checkout@v5
 
-      # 1. التثبيت والبناء (يجب أن يتم داخل مجلد demo)
+      # 1. التثبيت والبناء داخل مجلد demo
       - name: Build and Install dependencies
         run: |
-          cd demo         # الانتقال إلى المجلد الذي يحوي package.json
+          cd demo
           npm install
-          npm run build   # يتم تشغيل سكريبت البناء
+          npm run build
 
       # 2. النشر على Firebase
       - name: Deploy to Firebase Hosting Live Channel
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          # ... (باقي الإعدادات)
-          # entryPoint هنا يوجه الـ Action إلى مجلد demo قبل البحث عن firebase.json
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          channelId: live
+          projectId: ascend-bf5b2
           entryPoint: "./demo"
