@@ -14,8 +14,8 @@ jobs:
           cd demo
           npm install
           npm run build
-          # هذا السطر للتأكد من المجلد الموجود (سيظهر في السجلات)
-          ls -F 
+          echo "--- Content of demo folder after build ---"
+          ls -F  # هذا السطر سيكشف لنا اسم المجلد الحقيقي (build/ أو dist/)
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
