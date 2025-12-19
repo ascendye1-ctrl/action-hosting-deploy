@@ -9,7 +9,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      # الخطوة 1: تثبيت المكتبات (ضرورية جداً)
+      - name: Install Dependencies
+        run: npm install
+
+      # الخطوة 2: تحويل الكود إلى ملفات جاهزة للنشر (توليد مجلد dist)
+      - name: Build Website
+        run: npm run build
+
+      # الخطوة 3: النشر إلى Firebase
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
