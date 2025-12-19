@@ -9,15 +9,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # الخطوة 1: تثبيت المكتبات (ضرورية جداً)
+      # الخطوة 1: الدخول لمجلد demo وتثبيت المكتبات
       - name: Install Dependencies
-        run: npm install
+        run: |
+          cd demo
+          npm install
 
-      # الخطوة 2: تحويل الكود إلى ملفات جاهزة للنشر (توليد مجلد dist)
+      # الخطوة 2: الدخول لمجلد demo وبناء المشروع (لإنتاج مجلد dist)
       - name: Build Website
-        run: npm run build
+        run: |
+          cd demo
+          npm run build
 
-      # الخطوة 3: النشر إلى Firebase
+      # الخطوة 3: النشر مع تحديد المجلد الصحيح (entryPoint)
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -25,4 +29,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: ascend-bf5b2
           channelId: live
-          entryPoint: "."
+          entryPoint: "./demo" # هذا السطر هو مفتاح الحل
