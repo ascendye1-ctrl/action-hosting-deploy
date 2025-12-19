@@ -15,4 +15,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: ascend-bf5b2
           channelId: live
-         entryPoint: "./demo"
+          entryPoint: "./demo" # يجب أن يكون ملف firebase.json داخل مجلد demo
