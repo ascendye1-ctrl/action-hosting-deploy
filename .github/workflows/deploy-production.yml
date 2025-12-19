@@ -1,27 +1,23 @@
-name: Deploy Production
+name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main
+      - main  # سيتم النشر تلقائياً عند أي تعديل على فرع main
+
 jobs:
-  deploy_website:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # الخطوة 1: الدخول لمجلد demo وتثبيت المكتبات
+      # الخطوة الأهم للمشاريع الكبيرة: بناء المشروع
       - name: Install Dependencies
-        run: |
-          cd demo
-          npm install
+        run: npm install
 
-      # الخطوة 2: الدخول لمجلد demo وبناء المشروع (لإنتاج مجلد dist)
-      - name: Build Website
-        run: |
-          cd demo
-          npm run build
+      - name: Build Project
+        run: npm run build
 
-      # الخطوة 3: النشر مع تحديد المجلد الصحيح (entryPoint)
+      # النشر إلى Firebase
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -29,4 +25,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: ascend-bf5b2
           channelId: live
-          entryPoint: "./demo" # هذا السطر هو مفتاح الحل
+          entryPoint: "." # تأكد من أن هذا المسار يشير لمكان وجود firebase.json
