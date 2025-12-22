@@ -2,7 +2,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main  # سيتم النشر تلقائياً عند أي تعديل على فرع main
+      - main
 
 jobs:
   build_and_deploy:
@@ -10,27 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # الخطوة الأهم للمشاريع الكبيرة: بناء المشروع
+      # السطر 10 يبدأ هنا - تأكد من وجود مسافتين قبل الشرطة
+      - name: Show directory structure
+        run: ls -R
+
       - name: Install Dependencies
         run: npm install
 
       - name: Build Project
         run: npm run build
-
-      # النشر إلى Firebase
-   
-      steps:
-      - uses: actions/checkout@v4
-
-      # نضعها هنا بعد سحب الكود مباشرة
-      - name: Show directory structure
-        run: ls -R
-
-      # إذا كنت تقوم بعملية بناء للمشروع:
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
