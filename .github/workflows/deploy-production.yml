@@ -19,7 +19,13 @@ jobs:
 
       # النشر إلى Firebase
    
+      steps:
       - uses: actions/checkout@v4
+
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build  # تأكد أن هذا الأمر ينشئ مجلد اسمه dist
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -28,4 +34,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: ascend-bf5b2
           channelId: live
-          entryPoint: "demo"
+          entryPoint: "."
