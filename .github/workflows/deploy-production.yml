@@ -35,3 +35,6 @@ jobs:
           projectId: ascend-bf5b2
           channelId: live
           entryPoint: "."
+
+          - name: Show directory structure
+        run: ls -R
