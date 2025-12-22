@@ -22,10 +22,15 @@ jobs:
       steps:
       - uses: actions/checkout@v4
 
+      # نضعها هنا بعد سحب الكود مباشرة
+      - name: Show directory structure
+        run: ls -R
+
+      # إذا كنت تقوم بعملية بناء للمشروع:
       - name: Install and Build
         run: |
           npm install
-          npm run build  # تأكد أن هذا الأمر ينشئ مجلد اسمه dist
+          npm run build
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -35,6 +40,3 @@ jobs:
           projectId: ascend-bf5b2
           channelId: live
           entryPoint: "."
-
-          - name: Show directory structure
-        run: ls -R
