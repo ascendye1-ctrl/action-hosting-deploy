@@ -2,25 +2,27 @@ name: Deploy to Preview Channel
 
 on:
   pull_request:
-    # Optionally configure to run only for specific files. For example:
-    # paths:
-    # - "website/**"
+    branches:
+      - main
 
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Add any build steps here. For example:
-      # - run: npm ci && npm run build
+      
+      # إضافة خطوات البناء داخل مجلد demo
+      - name: Install and Build
+        run: |
+          cd demo
+          npm ci
+          npm run build --if-present
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
-      with:
+        with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          # هذا المتغير يجب أن يكون موجوداً في Secrets بـ GitHub أو Environment Variables بـ Render
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: "ascend-bf5b2"
           
-          # اسم المشروع الصحيح المستخرج من ملف الـ JSON الخاص بك
-          projectId: "ascend-bf5b2"  
-          
-          # بما أن ملف firebase.json موجود في المجلد الرئيسي (Root)
-          entryPoint: "."
+          # التصحيح هنا: الإشارة للمجلد الصحيح
+          entryPoint: "./demo"
