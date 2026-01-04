@@ -1,28 +1,71 @@
 <!DOCTYPE html>
-<!--
- Copyright 2020 Google LLC
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--->
-
-<html>
-  <head>
+<html lang="ar" dir="rtl">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Welcome to Firebase Hosting 🌎</title>
-  </head>
-  <body>
-    <h1>Hello World! 🌎</h1>
-  </body>
-</html>
+    <title>سوق ASCEND للمتاجر 🌎</title>
+    <style>
+        :root { --primary: #2c3e50; --accent: #e67e22; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        header { background: var(--primary); color: white; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .marketplace-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; position: relative; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; }
+        .product-info { padding: 15px; text-align: right; }
+        .store-badge { background: #eee; font-size: 0.8rem; padding: 5px 10px; border-radius: 20px; color: #555; display: inline-block; margin-bottom: 10px; }
+        .price { color: var(--accent); font-size: 1.2rem; font-weight: bold; }
+        .loading { font-size: 1.5rem; color: #777; margin-top: 50px; }
+    </style>
+</head>
+<body>
 
+    <header>
+        <h1>سوق ASCEND 🌎</h1>
+        <p>اكتشف منتجات أفضل المتاجر الإلكترونية في مكان واحد</p>
+    </header>
+
+    <div id="products-container" class="marketplace-grid">
+        <div class="loading">جاري جلب أحدث المنتجات من المتاجر...</div>
+    </div>
+
+    <script>
+        // ضع رابط Render الخاص بك هنا (تأكد من وجود /api/products في النهاية)
+        const API_URL = "https://your-service-name.onrender.com/api/products";
+
+        async function fetchMarketplaceData() {
+            try {
+                const response = await fetch(API_URL);
+                const products = await response.json();
+                
+                const container = document.getElementById('products-container');
+                container.innerHTML = ""; 
+
+                if (products.length === 0) {
+                    container.innerHTML = "<h3>لا توجد منتجات متوفرة حالياً في السوق.</h3>";
+                    return;
+                }
+
+                products.forEach(product => {
+                    container.innerHTML += `
+                        <div class="product-card">
+                            <img src="${product.image || 'https://via.placeholder.com/300'}" alt="${product.name}">
+                            <div class="product-info">
+                                <span class="store-badge">🏠 متجر: ${product.storeName || 'عام'}</span>
+                                <h3>${product.name}</h3>
+                                <p class="price">${product.price} ريال</p>
+                                <button style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:5px; cursor:pointer;">عرض تفاصيل المنتج</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('products-container').innerHTML = "<p>فشل تحميل السوق. تأكد من تشغيل السيرفر في Render.</p>";
+            }
+        }
+
+        window.onload = fetchMarketplaceData;
+    </script>
+</body>
+</html>
