@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.10.0",
   "type": "module",
-  "main": "bin/action.min.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -17,10 +16,6 @@
   },
   "devDependencies": {
     "vite": "^5.0.0",
-    "@vitejs/plugin-react": "^4.0.0",
-    "typescript": "^5.0.0",
-    "microbundle": "^0.15.1",
-    "prettier": "^2.8.7",
-    "husky": "^9.0.11"
+    "@vitejs/plugin-react": "^4.2.0"
   }
 }
