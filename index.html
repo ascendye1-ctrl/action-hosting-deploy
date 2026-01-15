@@ -23,7 +23,6 @@
             color: var(--primary);
         }
 
-        /* تحسين الهيدر */
         header { 
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); 
             color: white; 
@@ -32,57 +31,13 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
-        header h1 { font-size: 2.5rem; margin: 0; font-weight: 900; letter-spacing: -1px; }
+        header h1 { font-size: 2.5rem; margin: 0; font-weight: 900; }
         header p { opacity: 0.8; font-size: 1.1rem; margin-top: 10px; }
-
-        .container { max-width: 1200px; margin: -40px auto 50px; padding: 0 20px; }
-
-        .marketplace-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 25px; 
-        }
-
-        /* تحسين بطاقة المنتج */
-        .product-card { 
-            background: var(--card-bg); 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 35px rgba(0,0,0,0.1); }
-
-        .image-container { position: relative; width: 100%; height: 220px; }
-        .product-card img { width: 100%; height: 100%; object-fit: cover; }
-
-        .badge-floating {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255,255,255,0.9);
-            padding: 5px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: var(--accent);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .product-info { padding: 20px; }
-        
-        .price-tag { 
-            font-size: 1.4rem; 
-            color: var(--primary); 
-            font-weight: 900;
-        }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
