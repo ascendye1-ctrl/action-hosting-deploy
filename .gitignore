@@ -1,4 +1,3 @@
-node_modules
-.firebase/*
-**/*.d.ts
-demo/.firebase/hosting.*.cache
+node_modules/
+.env
+dist/
